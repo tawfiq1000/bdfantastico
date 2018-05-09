@@ -120,16 +120,28 @@
 								</tr>
 							</thead>
 							<tbody>
+
 								@foreach(Cart::content() as $item)
+								
 								<tr>
-									<td><input type="checkbox" value="option1"></td>
-									<td><a href=""><img alt="" src="{{asset('img/products/'.$item->options->slug.'.jpg')}}"></a></td>
-									<td>{{$item->name}}</td>
+									<td>
+										<form action="{{route('cart.destroy',$item->rowId)}}" method="POST">
+											@csrf
+											{{method_field('DELETE')}}
+
+											<button class="btn btn-inverse" type="submit" id="checkout">remove</button>
+											
+
+										
+										</form>
+									</td>
+									<td><a href="{{route('shop.show',$item->options->slug)}}"><img alt="" src="{{asset('img/products/'.$item->options->slug.'.jpg')}}"/></a></td>
+									<td><a href="{{route('shop.show',$item->options->slug)}}">{{$item->name}}</a></td>
 									
 
 									<td><input type="text" placeholder="1" class="input-mini"></td>
 									<td>{{'৳'.$item->price}}</td>
-									<td>$2,350.00</td>
+									<td>{{'৳'.$item->price}}</td>
 								</tr>
 								@endforeach			  
 								
@@ -139,7 +151,7 @@
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
-									<td><strong>$3,600.00</strong></td>
+									<td><strong>{{'৳'.Cart::total()}}</strong></td>
 								</tr>		  
 							</tbody>
 						</table>

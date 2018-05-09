@@ -9,6 +9,7 @@ Route::get('shop','shopController@index')->name('shop.index');
 Route::get('shop/{slug}','shopController@show')->name('shop.show');
 Route::get('cart','cartsController@index')->name('cart.index');
 Route::post('cart','cartsController@store')->name('cart.store');
+Route::delete('cart/{product}','cartsController@destroy')->name('cart.destroy');
 Route::get('empty',function(){
 	Cart::destroy();
 });

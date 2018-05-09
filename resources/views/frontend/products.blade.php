@@ -29,6 +29,12 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
+		<style>
+			.badge{
+				background-color: #e14000;
+			}
+		</style>
+
 	</head>
     <body>		
 		<div id="top-bar" class="container">
@@ -42,7 +48,7 @@
 					<div class="account pull-right">
 						<ul class="user-menu">				
 							<li><a href="#">My Account</a></li>
-							<li><a href="cart.html">Your Cart</a></li>
+							<li><a href="{{route('cart.index')}}">Your Cart &nbsp;<span class="badge">{{Cart::count()}}</span></a></li>
 							<li><a href="checkout.html">Checkout</a></li>					
 							<li><a href="register.html">Login</a></li>			
 						</ul>

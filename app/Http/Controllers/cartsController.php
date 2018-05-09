@@ -16,6 +16,7 @@ class cartsController extends Controller
      */
     public function index()
     {
+
         
         $products= Product::MightAlsoLike()->get();
         return view('frontend.cart',compact('products'));
@@ -42,6 +43,12 @@ class cartsController extends Controller
         //dd($request->all());
 
         $product=Product::find($request->id);
+        $duplicates=Cart::search(function($cartItem,$rowID)use($request){
+            return $cartItem->id===$request->id;
+        });
+        if($duplicates->isNotEmpty()){
+            return redirect()->route('cart.index')->with('success_message','item is already in your cart');
+        }
 
         Cart::add($request->id,$request->name,1,$request->price,['slug' => $product->slug])->associate('Product');
         //dd($vari);
@@ -93,6 +100,9 @@ class cartsController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
+
         Cart::remove($id);
+        return back()->with('success_message','item has been removed');
     }
 }
